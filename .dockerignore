@@ -1,0 +1,17 @@
+.git
+node_modules
+yarn-error.log
+error.log
+anycable.sh
+cron.log
+test
+tmp
+public/system/*
+public/assets/*
+spec/tmp/*
+.DS_Store
+.idea
+public/packs
+public/packs-test
+.vscode
+log
