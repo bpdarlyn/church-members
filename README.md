@@ -1,3 +1,5 @@
+# Bolierplate Rails 6.0.0 + Webpack + Postgres + Docker
+
 ## Requirements
 - Docker Engine 18.09.2
 - Docker Compose 1.23.2
