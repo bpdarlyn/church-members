@@ -4,7 +4,7 @@
 - Docker Machine 0.16.1
 
 ## Setting
-- Clone repository `git clone git@github.com:bpdarlyn/bolierplate-rails-6.git` && cd bolierplate-rails-6
+- Clone repository `git clone git@github.com:bpdarlyn/bolierplate-rails-6.git && cd bolierplate-rails-6`
 - `cp .env.example .env`
 
 ## Running
