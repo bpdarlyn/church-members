@@ -1,24 +1,13 @@
-# README
+## Requirements
+- Docker Engine 18.09.2
+- Docker Compose 1.23.2
+- Docker Machine 0.16.1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setting
+- Clone repository `git clone git@github.com:bpdarlyn/bolierplate-rails-6.git` && cd bolierplate-rails-6
+- `cp .env.example .env`
 
-Things you may want to cover:
+## Running
+- `docker-compose up --build`
+- open browser `localhost:3000/welcome/index`
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
