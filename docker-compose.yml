@@ -9,8 +9,8 @@ services:
     image: webpacker:latest
     container_name: webpacker
     environment:
-      NODE_ENV: development
-      RAILS_ENV: development
+      NODE_ENV: ${NODE_ENV}
+      RAILS_ENV: ${RAILS_ENV}
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
     command: ./bin/webpack-dev-server
     volumes:
@@ -42,13 +42,15 @@ services:
       DB_USER: $POSTGRES_USER
       DB_PASSWORD: $POSTGRES_PASS
       DB_NAME: "${APP_NAME}_${RAILS_ENV}"
+      RAILS_ENV: ${RAILS_ENV}
+      NODE_ENV: ${NODE_ENV}
     volumes:
       - .:/${APP_NAME}
     ports:
       - 3000:3000
     depends_on:
-      - 'db'
-      - 'webpacker'
+      - db
+      - webpacker
 
 volumes:
   dbdata:
