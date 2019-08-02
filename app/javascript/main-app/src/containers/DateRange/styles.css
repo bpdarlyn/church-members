@@ -1,0 +1,21 @@
+.range {
+    margin-top: 3%;
+    margin-left: 5%;
+}
+
+.search-field{
+    width: 400px !important;
+}
+
+.space-range{
+    margin-right: 3%;
+}
+
+
+.range .form-control{
+    background-color: #F1F1F1;
+    -webkit-box-shadow: 0.5px 0.5px 2px 3px #ccc;  
+    -moz-box-shadow:    0.5px 0.5px 2px 3px #ccc; 
+    box-shadow:         0.5px 0.5px 2px 3px #ccc; 
+    height: 45px !important; 
+}
