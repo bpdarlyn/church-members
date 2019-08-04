@@ -1,4 +1,4 @@
-# Boilerplate Rails 6.0.0 + Webpack + Postgres + Docker
+# Members Church + Webpack + Postgres + Docker
 
 ## Requirements
 - Docker Engine 18.09.2
