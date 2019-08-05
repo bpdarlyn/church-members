@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   before_action :set_church_man
 
   def set_church_man
-    person = current_user.person
-    set_current_tenant(person)
+    if user_signed_in?
+      person = current_user.person
+      set_current_tenant(person)
+    end
   end
 end
