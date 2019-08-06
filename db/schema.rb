@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_04_044514) do
+ActiveRecord::Schema.define(version: 2019_08_06_025610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string "token"
+    t.integer "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "people", force: :cascade do |t|
     t.string "name"
@@ -24,6 +31,8 @@ ActiveRecord::Schema.define(version: 2019_08_04_044514) do
     t.date "birthday"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "rolable_type"
+    t.integer "rolable_id"
   end
 
   create_table "users", force: :cascade do |t|

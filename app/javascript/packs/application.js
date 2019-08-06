@@ -5,12 +5,13 @@
 
 import '../main-app/styles/app.scss';
 require("@rails/ujs").start();
-require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 import 'jquery'
 require('popper.js/dist/popper');
 require('bootstrap/dist/js/bootstrap');
+require('javascripts/application');
+import 'bootstrap-table/dist/bootstrap-table.min'
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
