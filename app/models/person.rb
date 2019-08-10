@@ -9,4 +9,8 @@ class Person < ApplicationRecord
   def is?(role)
     role == self.rolable.class.name.downcase.to_sym
   end
+
+  def full_name
+    "#{name.titleize} #{last_name.titleize}"
+  end
 end

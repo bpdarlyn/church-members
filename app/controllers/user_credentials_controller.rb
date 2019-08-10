@@ -2,7 +2,9 @@ class UserCredentialsController < ApplicationController
   # before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   #region actions with views
-  def index ;end
+  def index
+    @people = Person.joins(:user)
+  end
 
   def new ;end
 
