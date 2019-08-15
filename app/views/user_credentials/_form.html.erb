@@ -1,1 +1,43 @@
-Formulario de Usuario
+<%= f.fields_for :person do |f_person| %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f_person.label :name %>
+      <%= f_person.text_field :name, class: 'form-control', placeholder: 'Nombres' %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f_person.label :last_name %>
+      <%= f_person.text_field :last_name, class: 'form-control', placeholder: 'Apellidos' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f_person.label :address %>
+    <%= f_person.text_field :address, class: 'form-control', placeholder: 'Dirección' %>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f_person.label :birthday %>
+      <%= f_person.date_field :birthday, class: 'form-control', placeholder: 'Fecha de Nac.' %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f_person.label :phone_number %>
+      <%= f_person.telephone_field :phone_number, class: 'form-control', placeholder: 'Dirección' %>
+    </div>
+  </div>
+
+  <%= f_person.fields_for :user do |f_user| %>
+    <div class="form-group">
+      <%= f_user.label :email %>
+      <%= f_user.email_field :email, class: 'form-control', placeholder: 'Email' %>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <%= f_user.label :password %>
+        <%= f_user.password_field :password, class: 'form-control', placeholder: 'Password' %>
+      </div>
+      <div class="form-group col-md-6">
+        <%= f_user.label :password_confirmation %>
+        <%= f_user.password_field :password_confirmation, class: 'form-control', placeholder: 'Password' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

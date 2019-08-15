@@ -3,16 +3,34 @@ class UserCredentialsController < ApplicationController
 
   #region actions with views
   def index
-    @people = Person.joins(:user)
+    @admins = Admin.joins(person: :user)
   end
 
-  def new ;end
+  def new
+    @admin = Admin.new
+    person = @admin.build_person
+    person.build_user
+  end
 
   def edit ;end
   #endregion
 
   #region logical actions
-  def create ;end
+  def create
+    @admin = Admin.new(admin_params)
+
+    respond_to do |format|
+      if @admin.save
+        format.html { redirect_to user_credentials_path, notice: 'Admin was successfully created.' }
+      else
+        # person = @admin.build_person
+        unless @admin.person.user
+          @admin.person.build_user
+        end
+        format.html { render :new }
+      end
+    end
+  end
 
   def update ;end
 
@@ -25,8 +43,13 @@ class UserCredentialsController < ApplicationController
     @user = @person.user
   end
 
-  def person_params
-    params.require(:person).permit(:name, :last_name,:ci,:phone_number,:address,:birthday, user_attributes: [:id,:email,:password,:password_confirmation])
+  def admin_params
+    params.require(:admin)
+        .permit(:token, :id,
+                person_attributes: [
+                    :id,:name,:last_name,:ci,:phone_number,:address,:birthday,
+                    user_attributes: [:id,:email,:password,:password_confirmation]
+                ])
   end
 
 end
