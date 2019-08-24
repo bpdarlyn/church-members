@@ -21,3 +21,7 @@
     </fieldset>
   </div>
 </div>
+
+<% content_for :scripts do %>
+  <%= javascript_pack_tag 'main-app/src/type_of_meetings/edit'%>
+<% end %>

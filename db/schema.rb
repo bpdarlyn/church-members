@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_24_022439) do
+ActiveRecord::Schema.define(version: 2019_08_24_081052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2019_08_24_022439) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "my_titles", force: :cascade do |t|
+    t.boolean "active"
+    t.date "title_date"
+    t.bigint "title_obtained_id", null: false
+    t.bigint "person_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["person_id"], name: "index_my_titles_on_person_id"
+    t.index ["title_obtained_id"], name: "index_my_titles_on_title_obtained_id"
+  end
+
   create_table "people", force: :cascade do |t|
     t.string "name"
     t.string "last_name"
@@ -39,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_08_24_022439) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "rolable_type"
     t.integer "rolable_id"
+    t.string "sex", limit: 1
   end
 
   create_table "pre_attendance_meetings", force: :cascade do |t|
@@ -88,6 +100,8 @@ ActiveRecord::Schema.define(version: 2019_08_24_022439) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "my_titles", "people"
+  add_foreign_key "my_titles", "title_obtaineds"
   add_foreign_key "pre_attendance_meetings", "title_obtaineds"
   add_foreign_key "pre_attendance_meetings", "type_of_meetings"
 end

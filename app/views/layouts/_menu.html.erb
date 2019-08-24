@@ -10,14 +10,28 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-male"></i>
-          Administración
+          Informes
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>Miembros</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-file-alt mr-1"></i>Reuniones</a>
-          <a class="dropdown-item" href="#"><i class="fab fa-discourse mr-1"></i>Mi Avance</a>
+          <% TypeOfMeeting.all.each do |type_of_meeting| %>
+            <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>
+              <%= type_of_meeting.name.try(:titleize) %>
+            </a>
+          <% end %>
         </div>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-male"></i>
+          Integrantes
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% TitleObtained.all.each do |title_obtained| %>
+            <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i><%= title_obtained.name.try(:titleize).try(:pluralize) %></a>
+          <% end %>
+        </div>
+      </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-cogs"></i>

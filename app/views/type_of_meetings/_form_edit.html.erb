@@ -11,16 +11,8 @@
 <div class="form-row">
   <div class="form-group col">
     <label for="exampleFormControlSelect1">
-      Añadir Asistentes ?
+      Requisito para Asistir ?
     </label>
-    <select name="type_of_meeting[pre_attendance_meetings_attributes][][title_obtained_id]" class="custom-select" multiple>
-      <option>Todos</option>
-      <% @title_obtaineds.each do |title_obtained| %>
-        <% selected = selected_option(f.object.title_obtaineds,title_obtained) %>
-        <option <%= selected ? 'selected': nil %> value="<%= title_obtained.id %>">
-          <%= title_obtained.name %>
-        </option>
-      <% end %>
-    </select>
+    <%= f.select :title_obtained_ids, @title_obtaineds.collect{|c| [c.name, c.id]}, {}, {multiple: true,class: 'custom-select'} %>
   </div>
 </div>

@@ -29,11 +29,11 @@ class TypeOfMeetingsController < ApplicationController
 
     respond_to do |format|
       if @type_of_meeting.save
-        format.html { redirect_to @type_of_meeting, notice: 'Type of meeting was successfully created.' }
-        format.json { render :show, status: :created, location: @type_of_meeting }
+        format.html {redirect_to @type_of_meeting, notice: 'Type of meeting was successfully created.'}
+        format.json {render :show, status: :created, location: @type_of_meeting}
       else
-        format.html { render :new }
-        format.json { render json: @type_of_meeting.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @type_of_meeting.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -41,14 +41,14 @@ class TypeOfMeetingsController < ApplicationController
   # PATCH/PUT /type_of_meetings/1
   # PATCH/PUT /type_of_meetings/1.json
   def update
-    p params
+    @title_obtaineds = TitleObtained.all
     respond_to do |format|
-      if @type_of_meeting.update(type_of_meeting_params)
-        format.html { redirect_to @type_of_meeting, notice: 'Type of meeting was successfully updated.' }
-        format.json { render :show, status: :ok, location: @type_of_meeting }
+      if @type_of_meeting.update(type_of_meeting_params.merge(pre_attendance_meetings_attributes: pre_attendance_meeting_params))
+        format.html {redirect_to @type_of_meeting, notice: 'Type of meeting was successfully updated.'}
+        format.json {render :show, status: :ok, location: @type_of_meeting}
       else
-        format.html { render :edit }
-        format.json { render json: @type_of_meeting.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @type_of_meeting.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -58,25 +58,36 @@ class TypeOfMeetingsController < ApplicationController
   def destroy
     @type_of_meeting.destroy
     respond_to do |format|
-      format.html { redirect_to type_of_meetings_url, notice: 'Type of meeting was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to type_of_meetings_url, notice: 'Type of meeting was successfully destroyed.'}
+      format.json {head :no_content}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_type_of_meeting
-      @type_of_meeting = TypeOfMeeting.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def type_of_meeting_params
-      params.require(:type_of_meeting).permit(:name, :description, :code,
-                                              pre_attendance_meetings_attributes: [
-                                                  :id,
-                                                  :title_obtained_id,
-                                                  :_destroy
-                                              ]
-      )
+  # Use callbacks to share common setup or constraints between actions.
+  def set_type_of_meeting
+    @type_of_meeting = TypeOfMeeting.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def type_of_meeting_params
+    params.require(:type_of_meeting).except(:title_obtained_ids).permit(:name, :description, :code,
+                                            pre_attendance_meetings_attributes:
+                                                [:title_obtained_id]
+    )
+
+  end
+
+  def pre_attendance_meeting_params
+    pre_attendance = []
+    @type_of_meeting.title_obtaineds.destroy_all
+    params[:type_of_meeting][:title_obtained_ids].each do |title_obtained_id,index|
+      unless title_obtained_id.blank?
+        pre_attendance << {title_obtained_id: title_obtained_id }
+      end
     end
+    pre_attendance
+  end
+
 end
