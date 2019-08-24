@@ -8,6 +8,7 @@ import 'jquery';
 require("@rails/ujs").start();
 require("@rails/activestorage").start();
 require("channels");
+
 import 'popper.js/dist/popper.min';
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap-table/dist/bootstrap-table.min';

@@ -1,0 +1,19 @@
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Nuevo Tipo de Reunión
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    Rellena el Formulario
+  </div>
+  <div class="card-body">
+    <%= form_for @type_of_meeting, url: type_of_meetings_path do |f| %>
+      <%= render partial: 'layouts/errors', locals: {errors: @type_of_meeting.errors }  %>
+      <%= render partial: 'form', locals: {type_of_meeting: @type_of_meeting, f: f} %>
+      <%= f.submit("Crear",{class: 'btn btn-primary'})%>
+      <%= link_to 'Atrás', type_of_meetings_path, class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</div>

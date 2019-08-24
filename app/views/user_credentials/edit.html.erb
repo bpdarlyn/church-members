@@ -1,1 +1,15 @@
-Editar Usuario
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Editar Usuario
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-body">
+    <%= form_for @admin, url: user_credential_path do |f| %>
+      <%= render partial: 'layouts/errors', locals: {errors: @admin.errors }  %>
+      <%= render partial: 'form', locals: {admin: @admin, f: f} %>
+      <%= f.submit("Editar",{class: 'btn btn-primary'})%>
+    <% end %>
+  </div>
+</div>

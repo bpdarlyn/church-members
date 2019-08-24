@@ -1,0 +1,50 @@
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Reuniones
+  </li>
+<% end %>
+
+<div class="d-flex position-absolute" style="bottom: 10%; right: 2%">
+  <a  href="<%= new_type_of_meeting_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
+    <i class="fas fa-plus text-white"></i>
+  </a>
+</div>
+
+<div class="row">
+  <div class="col shadow-sm">
+    <table
+      data-toggle="table"
+      data-search="true"
+      data-show-refresh="true"
+      data-show-toggle="true"
+    >
+      <thead>
+      <tr>
+        <th>Reunión</th>
+        <th>Descripción</th>
+        <th>Acción</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @type_of_meetings.each do |type_of_meeting| %>
+        <tr>
+          <td><%= type_of_meeting.name %></td>
+          <td><%= type_of_meeting.description %></td>
+          <td>
+            <a href="<%= type_of_meeting_path(type_of_meeting) %>" class="text-info mr-1" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-eye"></i>
+            </a>
+            <a href="<%= edit_type_of_meeting_path(type_of_meeting)%>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-edit"></i>
+            </a>
+            <%= link_to type_of_meeting, method: :delete,"title":"Tooltip on top", "data-placement:":"top","data-toggle": "tooltip" ,class: 'text-danger', data: { confirm: 'Are you sure?' }  do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

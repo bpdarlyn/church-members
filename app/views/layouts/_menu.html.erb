@@ -25,11 +25,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<%= user_credentials_path %>"><i class="fas fa-users mr-1"></i>Usuarios</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-file-alt mr-1"></i>Tipos Reuniones</a>
-          <a class="dropdown-item" href="#"><i class="fab fa-discourse mr-1"></i>Tipos Cursos o Estudios</a>
-          <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete">
-            <i class="fas fa-sign-in-alt mr-1"></i>Salir del Sistema
-          </a>
+          <a class="dropdown-item" href="<%= type_of_meetings_path %>"><i class="fas fa-file-alt mr-1"></i>Tipos Reuniones</a>
+          <a class="dropdown-item" href="<%= type_of_courses_path %>"><i class="fab fa-discourse mr-1"></i>Tipos Cursos o Estudios</a>
+          <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete"><i class="fas fa-sign-in-alt mr-1"></i>Salir del Sistema</a>
         </div>
       </li>
     </ul>

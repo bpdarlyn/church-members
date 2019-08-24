@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Church Men</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @church_men.each do |church_man| %>
+      <tr>
+        <td><%= church_man.token %></td>
+        <td><%= link_to 'Show', church_man %></td>
+        <td><%= link_to 'Edit', edit_church_man_path(church_man) %></td>
+        <td><%= link_to 'Destroy', church_man, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Church Man', new_church_man_path %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title type:</strong>
+  <%= @title_obtained.title_type %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @title_obtained.name %>
+</p>
+
+<%= link_to 'Edit', edit_title_obtained_path(@title_obtained) %> |
+<%= link_to 'Back', title_obtaineds_path %>

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-
   #region resources
-  resources :admins, :user_credentials
+  resources :admins, :user_credentials, :type_of_meetings,
+            :type_of_courses, :church_men,:title_obtaineds
   #endregion
 
   #region setting

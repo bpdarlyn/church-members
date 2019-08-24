@@ -1,0 +1,23 @@
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Editar Tipo de Reunión
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    Rellena el Formulario
+  </div>
+  <div class="card-body">
+    <fieldset>
+    <%= form_for @type_of_meeting, url: type_of_meeting_path, class: 'was-validated' do |f| %>
+      <%= render partial: 'layouts/errors', locals: {errors: @type_of_meeting.errors }  %>
+      <%= render partial: 'form_edit', locals: {type_of_meeting: @type_of_meeting, f: f} %>
+      <div>
+        <%= f.submit("Editar",{class: 'btn btn-primary'})%>
+        <%= link_to 'Atrás', type_of_meetings_path, class: 'btn btn-danger' %>
+      </div>
+    <% end %>
+    </fieldset>
+  </div>
+</div>

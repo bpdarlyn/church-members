@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_025610) do
+ActiveRecord::Schema.define(version: 2019_08_24_022439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,12 @@ ActiveRecord::Schema.define(version: 2019_08_06_025610) do
   create_table "admins", force: :cascade do |t|
     t.string "token"
     t.integer "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "church_men", force: :cascade do |t|
+    t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -35,6 +41,39 @@ ActiveRecord::Schema.define(version: 2019_08_06_025610) do
     t.integer "rolable_id"
   end
 
+  create_table "pre_attendance_meetings", force: :cascade do |t|
+    t.bigint "type_of_meeting_id", null: false
+    t.bigint "title_obtained_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["title_obtained_id"], name: "index_pre_attendance_meetings_on_title_obtained_id"
+    t.index ["type_of_meeting_id"], name: "index_pre_attendance_meetings_on_type_of_meeting_id"
+  end
+
+  create_table "title_obtaineds", force: :cascade do |t|
+    t.string "title_type"
+    t.string "name"
+    t.integer "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "type_of_courses", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "type_of_meetings", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,4 +88,6 @@ ActiveRecord::Schema.define(version: 2019_08_06_025610) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "pre_attendance_meetings", "title_obtaineds"
+  add_foreign_key "pre_attendance_meetings", "type_of_meetings"
 end

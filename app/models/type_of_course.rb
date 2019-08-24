@@ -1,0 +1,2 @@
+class TypeOfCourse < ApplicationRecord
+end

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type_of_meeting: one
+  title_obtained: one
+
+two:
+  type_of_meeting: two
+  title_obtained: two

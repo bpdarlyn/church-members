@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Title Obtaineds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title type</th>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @title_obtaineds.each do |title_obtained| %>
+      <tr>
+        <td><%= title_obtained.title_type %></td>
+        <td><%= title_obtained.name %></td>
+        <td><%= link_to 'Show', title_obtained %></td>
+        <td><%= link_to 'Edit', edit_title_obtained_path(title_obtained) %></td>
+        <td><%= link_to 'Destroy', title_obtained, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Title Obtained', new_title_obtained_path %>
