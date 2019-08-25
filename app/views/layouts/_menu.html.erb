@@ -27,7 +27,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <% TitleObtained.all.each do |title_obtained| %>
-            <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i><%= title_obtained.name.try(:titleize).try(:pluralize) %></a>
+            <a class="dropdown-item" href="<%= people_path(filter_code: title_obtained.code) %>"><i class="fas fa-users mr-1"></i><%= title_obtained.name.try(:titleize).try(:pluralize) %></a>
           <% end %>
         </div>
       </li>

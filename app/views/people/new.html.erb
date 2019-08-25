@@ -1,6 +1,6 @@
 <% content_for :breadcrumb do  %>
   <li class="breadcrumb-item active" aria-current="page">
-    Editar Persona
+    Nueva Persona
   </li>
 <% end %>
 
@@ -10,7 +10,7 @@
     <small class="text-muted">Cualquier persona registrada estará bajo su liderazgo</small>
   </div>
   <div class="card-body">
-    <%= form_for @person, url: person_path do |f| %>
+    <%= form_for @person, url: people_path do |f| %>
       <%= render partial: 'layouts/errors', locals: {errors: @person.errors }  %>
       <%= render partial: 'form', locals: {person: @person, f: f} %>
       <%= f.submit("Crear",{class: 'btn btn-primary'})%>

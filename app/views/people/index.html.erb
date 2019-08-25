@@ -1,11 +1,11 @@
 <% content_for :breadcrumb do  %>
   <li class="breadcrumb-item active" aria-current="page">
-    Listado de Personas
+    Listado de <%= @title_obtained.try(:name).try(:titleize).try(:pluralize) %>
   </li>
 <% end %>
 
 <div class="d-flex position-absolute" style="bottom: 10%; right: 2%">
-  <a  href="<%= new_user_credential_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
+  <a  href="<%= new_person_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
     <i class="fas fa-plus text-white"></i>
   </a>
 </div>
@@ -23,23 +23,20 @@
         <th>Nombre Completo</th>
         <th>Teléfono</th>
         <th>Dirección</th>
-        <th>Correo Eletrónico</th>
         <th></th>
       </tr>
       </thead>
       <tbody>
-      <% @admins.each do |admin| %>
+      <% @people.each do |person| %>
         <tr>
-          <% person = admin.person %>
           <td><%= person.full_name %></td>
           <td><%= number_to_phone(person.phone_number) %></td>
           <td><%= person.address %></td>
-          <td><%= person.user.email %></td>
           <td>
             <a href="#" class="text-info mr-1" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
               <i class="fas fa-info"></i>
             </a>
-            <a href="<%= edit_user_credential_url(admin) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+            <a href="<%= edit_person_path(person) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
               <i class="fas fa-edit"></i>
             </a>
             <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">

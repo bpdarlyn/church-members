@@ -1,1 +1,48 @@
-Formulario de Personas
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'Nombres' %>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class: 'form-control', placeholder: 'Apellidos' %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :address %>
+  <%= f.text_field :address, class: 'form-control', placeholder: 'Dirección' %>
+</div>
+<div class="form-row">
+  <div class="form-group col-md-4">
+    <%= f.label :birthday %>
+    <%= f.date_field :birthday, class: 'custom-select mr-sm-2', placeholder: 'Fecha de Nac.' %>
+  </div>
+  <div class="form-group col-md-4">
+    <%= f.label :phone_number %>
+    <%= f.telephone_field :phone_number, class: 'form-control', placeholder: 'Dirección' %>
+  </div>
+  <div class="form-group col-md-4">
+    <%= f.label :ci %>
+    <%= f.text_field :ci, class: 'form-control', placeholder: 'Cédula de Identidad' %>
+    <small class="text-muted">3232323 SC</small>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-group col">
+    <label for="exampleFormControlSelect1">
+      cualidades de la persona a registrar ?
+    </label>
+    <%= f.fields_for :my_titles do |tf| %>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label" >
+          <%= tf.object.title_obtained.try :name %>
+        </label>
+        <input type="radio"
+               <%= tf.object.active ? 'checked':nil %>
+               name="title_obtained_id" value="<%= tf.object.title_obtained_id %>">
+      </div>
+    <% end %>
+    <small class="text-muted">selecciona uno para ingresar la cualidad actual</small>
+  </div>
+</div>
