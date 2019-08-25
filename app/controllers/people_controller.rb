@@ -24,13 +24,19 @@ class PeopleController < ApplicationController
   end
 
   def edit
+    unless @person.my_titles.any?
+      TitleObtained.all.each do |title_obtained|
+        title = @person.my_titles.build
+        title.title_obtained = title_obtained
+        title.save
+      end
+    end
   end
 
   #endregion
 
   #region logical actions
   def create
-    p params
     @person = Person.new(person_params)
     TitleObtained.all.each do |title_obtained|
       new_title = @person.my_titles.build

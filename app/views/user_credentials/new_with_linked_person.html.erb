@@ -1,0 +1,49 @@
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Seleccionar un Usuario
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    Rellena el Formulario
+    <%= link_to("Nuevo", new_user_credential_path, class: 'float-right btn btn-outline-dark') %>
+  </div>
+  <div class="card-body">
+    <%= form_for @user, {url: create_with_linked_person_user_credentials_path} do |f| %>
+      <%= render partial: 'layouts/errors', locals: {errors: @user.errors} %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password' %>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <%= label_tag 'Persona' %>
+          <select class="js-example-basic-single" name="person_id" style="width: 100%">
+            <% @people.each_with_index do |person, index| %>
+              <option value="<%= person.id %>" <%= index === 0 ? 'selected' : nil %>>
+                <%= "#{person.full_name} (#{person.active_my_title.try(:title_obtained).try(:name)})" %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+      <%= submit_tag("Crear", {class: 'btn btn-primary'}) %>
+      <%= link_to("Volver", user_credentials_path) %>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+  <%= javascript_pack_tag 'main-app/src/user_credentials/linked-user-person' %>
+<% end %>

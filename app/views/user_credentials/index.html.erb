@@ -5,7 +5,7 @@
 <% end %>
 
   <div class="d-flex position-absolute" style="bottom: 10%; right: 2%">
-    <a  href="<%= new_user_credential_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
+    <a  href="<%= new_with_linked_person_user_credentials_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
       <i class="fas fa-plus text-white"></i>
     </a>
   </div>
@@ -28,9 +28,9 @@
         </tr>
         </thead>
         <tbody>
-          <% @admins.each do |admin| %>
+          <% @church_man.each do |church_men| %>
           <tr>
-            <% person = admin.person %>
+            <% person = church_men.person %>
             <td><%= person.full_name %></td>
             <td><%= number_to_phone(person.phone_number) %></td>
             <td><%= person.address %></td>
@@ -39,7 +39,7 @@
               <a href="#" class="text-info mr-1" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 <i class="fas fa-info"></i>
               </a>
-              <a href="<%= edit_user_credential_url(admin) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <a href="<%= edit_user_credential_url(church_men) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 <i class="fas fa-edit"></i>
               </a>
               <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
@@ -53,6 +53,4 @@
     </div>
   </div>
 
-<% content_for :scripts do %>
-  <%= javascript_pack_tag 'main-app/src/user_credentials/index'%>
-<% end %>
+

@@ -1,29 +1,52 @@
-<p id="notice"><%= notice %></p>
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Admins
+  </li>
+<% end %>
 
-<h1>Admins</h1>
+<div class="d-flex position-absolute" style="bottom: 10%; right: 2%">
+  <a  href="<%= new_admin_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
+    <i class="fas fa-plus text-white"></i>
+  </a>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Token</th>
-      <th>Code</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @admins.each do |admin| %>
+<div class="row">
+  <div class="col shadow-sm">
+    <table
+      data-toggle="table"
+      data-search="true"
+      data-show-refresh="true"
+      data-show-toggle="true"
+    >
+      <thead>
       <tr>
-        <td><%= admin.token %></td>
-        <td><%= admin.code %></td>
-        <td><%= link_to 'Show', admin %></td>
-        <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Nombre Completo</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Admin', new_admin_path %>
+      </thead>
+      <tbody>
+      <% @admins.each do |admin| %>
+        <% person = admin.person %>
+        <tr>
+          <td><%= person.full_name %></td>
+          <td><%= number_to_phone(person.phone_number) %></td>
+          <td><%= person.address %></td>
+          <td>
+            <a href="#" class="text-info mr-1" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-info"></i>
+            </a>
+            <a href="<%= edit_admin_path(person) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-edit"></i>
+            </a>
+            <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
