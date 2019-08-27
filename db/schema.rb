@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_004647) do
+ActiveRecord::Schema.define(version: 2019_08_27_121852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,8 @@ ActiveRecord::Schema.define(version: 2019_08_27_004647) do
     t.string "rolable_type"
     t.integer "rolable_id"
     t.string "sex", limit: 1
+    t.bigint "person_id"
+    t.index ["person_id"], name: "index_people_on_person_id"
   end
 
   create_table "person_attendance_meetings", force: :cascade do |t|
@@ -157,6 +159,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_004647) do
   add_foreign_key "meetings", "type_of_meetings"
   add_foreign_key "my_titles", "people"
   add_foreign_key "my_titles", "title_obtaineds"
+  add_foreign_key "people", "people"
   add_foreign_key "person_attendance_meetings", "header_attendance_meetings"
   add_foreign_key "person_attendance_meetings", "people"
   add_foreign_key "pre_attendance_meetings", "title_obtaineds"

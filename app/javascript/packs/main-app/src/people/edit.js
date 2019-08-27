@@ -7,7 +7,6 @@ $(document).ready(()=>{
     // $.fn.select2.defaults.set('amdLanguageBase', 'select2/i18n/');
     console.log('people 2 hoello');
     $('.js-example-basic-single').select2({
-        placeholder: 'Ingresa una cualidad',
         allowClear: true,
         language: "es"
     });

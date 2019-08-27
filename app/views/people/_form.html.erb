@@ -8,9 +8,18 @@
     <%= f.text_field :last_name, class: 'form-control', placeholder: 'Apellidos' %>
   </div>
 </div>
-<div class="form-group">
-  <%= f.label :address %>
-  <%= f.text_field :address, class: 'form-control', placeholder: 'Dirección' %>
+<div class="form-row">
+  <div class="form-group col">
+    <%= f.label :address %>
+    <%= f.text_field :address, class: 'form-control', placeholder: 'Dirección' %>
+  </div>
+  <% if current_user.is?(:admin) %>
+  <div class="form-group col">
+    <%= f.label :person_id %>
+    <%= f.select :person_id, @people.collect{|c| ["#{c.full_name} (#{c.active_my_title.try(:title_obtained).try(:name)})", c.id]}, {prompt: 'Ninguna'}, { style: 'width: 100%',class: 'custom-select js-example-basic-single'} %>
+  </div>
+  <% end %>
+
 </div>
 <div class="form-row">
   <div class="form-group col-md-4">

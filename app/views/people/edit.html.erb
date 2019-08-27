@@ -13,7 +13,7 @@
     <%= form_for @person, url: person_path do |f| %>
       <%= render partial: 'layouts/errors', locals: {errors: @person.errors }  %>
       <%= render partial: 'form', locals: {person: @person, f: f} %>
-      <%= f.submit("Crear",{class: 'btn btn-primary'})%>
+      <%= f.submit("Editar",{class: 'btn btn-primary'})%>
       <%= link_to 'Atrás', people_path, class: 'btn btn-danger' %>
     <% end %>
   </div>

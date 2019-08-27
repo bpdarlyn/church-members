@@ -21,9 +21,11 @@ class PeopleController < ApplicationController
       title = @person.my_titles.build
       title.title_obtained = title_obtained
     end
+    @people = Person.all
   end
 
   def edit
+    @people = Person.all
     unless @person.my_titles.any?
       TitleObtained.all.each do |title_obtained|
         title = @person.my_titles.build
@@ -66,6 +68,7 @@ class PeopleController < ApplicationController
         end
         format.html {redirect_to people_path, notice: 'Person was successfully updated.'}
       else
+        @people = Person.all
         format.html {render :edit}
       end
     end
@@ -83,8 +86,12 @@ class PeopleController < ApplicationController
   end
 
   def person_params
-    params.require(:person)
-        .permit(:name, :last_name, :address, :birthday, :phone_number, :ci, :sex)
+    params_with_leader = params.require(:person)
+        .permit(:name, :last_name, :address, :birthday, :phone_number, :ci, :sex,:person_id)
+    unless current_user.is?(:admin)
+      params_with_leader.merge({person_id: current_user.person_id})
+    end
+    params_with_leader
   end
 
 end

@@ -11,6 +11,7 @@ es:
         ci: "Carnet de Identidad"
         birthday: "Fecha de Cumpleaños"
         sex: "Sexo"
+        person_id: Persona a Cargo
         user:
           email: Correo Electrónico
           password: Contraseña

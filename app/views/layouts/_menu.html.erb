@@ -13,7 +13,8 @@
           Generar Informes
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% TypeOfMeeting.all.each do |type_of_meeting| %>
+          <% current_user.person.meetings.each do |meeting| %>
+            <% type_of_meeting = meeting.type_of_meeting %>
             <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>
               <%= type_of_meeting.name.try(:titleize) %>
             </a>

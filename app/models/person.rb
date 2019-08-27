@@ -1,9 +1,8 @@
 class Person < ApplicationRecord
   #Relationships
   belongs_to :rolable, polymorphic: true, optional: true
-
+  belongs_to :person_leader,class_name: 'Person', foreign_key: 'person_id', optional: true
   has_one :user, dependent: :destroy
-
   has_many :my_titles, dependent: :destroy
   has_many :meetings, dependent: :destroy
   has_many :title_obtaineds, through: :my_titles
