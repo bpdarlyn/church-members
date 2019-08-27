@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_24_081052) do
+ActiveRecord::Schema.define(version: 2019_08_27_004647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,48 @@ ActiveRecord::Schema.define(version: 2019_08_24_081052) do
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "header_attendance_meetings", force: :cascade do |t|
+    t.string "topic"
+    t.date "attendance_date"
+    t.float "offerings"
+    t.integer "created_by_id"
+    t.string "prayer"
+    t.integer "validated"
+    t.integer "total_attendees"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.decimal "lat"
+    t.decimal "lng"
+    t.string "address"
+    t.string "place_id"
+    t.string "custom_address"
+    t.integer "locable_id"
+    t.string "locable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.date "first_start_date"
+    t.datetime "start_date_time"
+    t.datetime "end_date_time"
+    t.boolean "active"
+    t.bigint "type_of_meeting_id", null: false
+    t.bigint "person_id", null: false
+    t.string "code"
+    t.string "description"
+    t.string "name"
+    t.bigint "location_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["location_id"], name: "index_meetings_on_location_id"
+    t.index ["person_id"], name: "index_meetings_on_person_id"
+    t.index ["type_of_meeting_id"], name: "index_meetings_on_type_of_meeting_id"
   end
 
   create_table "my_titles", force: :cascade do |t|
@@ -51,6 +93,16 @@ ActiveRecord::Schema.define(version: 2019_08_24_081052) do
     t.string "rolable_type"
     t.integer "rolable_id"
     t.string "sex", limit: 1
+  end
+
+  create_table "person_attendance_meetings", force: :cascade do |t|
+    t.boolean "attended"
+    t.bigint "person_id", null: false
+    t.bigint "header_attendance_meeting_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["header_attendance_meeting_id"], name: "meeting_attend"
+    t.index ["person_id"], name: "index_person_attendance_meetings_on_person_id"
   end
 
   create_table "pre_attendance_meetings", force: :cascade do |t|
@@ -100,8 +152,13 @@ ActiveRecord::Schema.define(version: 2019_08_24_081052) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "meetings", "locations"
+  add_foreign_key "meetings", "people"
+  add_foreign_key "meetings", "type_of_meetings"
   add_foreign_key "my_titles", "people"
   add_foreign_key "my_titles", "title_obtaineds"
+  add_foreign_key "person_attendance_meetings", "header_attendance_meetings"
+  add_foreign_key "person_attendance_meetings", "people"
   add_foreign_key "pre_attendance_meetings", "title_obtaineds"
   add_foreign_key "pre_attendance_meetings", "type_of_meetings"
 end

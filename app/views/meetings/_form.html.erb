@@ -1,0 +1,56 @@
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'Nombre de Reunión' %>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control', placeholder: 'Descripción' %>
+  </div>
+</div>
+<div class="form-row">
+  <div class="form-group col">
+    <%= f.label :code %>
+    <%= f.text_field :code, class: 'form-control', placeholder: 'Código' %>
+  </div>
+  <div class="form-group col">
+    <%= f.label :start_date_time %>
+    <%= f.datetime_field :start_date_time, class: 'form-control'%>
+  </div>
+  <div class="form-group col">
+    <%= f.label :end_date_time %>
+    <%= f.datetime_field :end_date_time , class: 'form-control'%>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-group col">
+    <%= f.label :person_id %>
+    <%= f.select :person_id, @people.collect{|c| ["#{c.full_name} (#{c.active_my_title.try(:title_obtained).try(:name)})", c.id]}, {}, { style: 'width: 100%',class: 'custom-select js-custom-select'} %>
+  </div>
+  <div class="form-group col">
+    <%= f.label :type_of_meeting_id %>
+    <%= f.select :type_of_meeting_id, @type_of_meetings.collect{|c| [c.name, c.id]}, {}, {style: 'width: 100%', class: 'custom-select js-custom-select'} %>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="form-check">
+    <%= f.check_box :active, class: 'form-check-input' %>
+    <%= f.label :active, class: 'form-check-label' %>
+  </div>
+</div>
+<%= f.fields_for :location do |l_f| %>
+    <div class="form-group ">
+      <%= l_f.label :custom_address %>
+      <%= l_f.text_field :custom_address , class: 'form-control'%>
+      <%= l_f.hidden_field :lat %>
+      <%= l_f.hidden_field :lng %>
+      <%= l_f.hidden_field :address %>
+      <%= l_f.hidden_field :place_id %>
+    </div>
+    <div id="google-location" class="form-group" style="height: 450px;">
+      asdf
+    </div>
+
+<% end %>

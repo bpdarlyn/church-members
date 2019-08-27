@@ -1,0 +1,7 @@
+es:
+  activerecord:
+    attributes:
+      user:
+        email: Correo Electrónico
+        password: Contraseña
+        password_confirmation: Confirma la Contraseña

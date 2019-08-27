@@ -5,11 +5,12 @@ class Person < ApplicationRecord
   has_one :user, dependent: :destroy
 
   has_many :my_titles, dependent: :destroy
+  has_many :meetings, dependent: :destroy
   has_many :title_obtaineds, through: :my_titles
   has_one :active_my_title, -> {where(active: true)} , class_name: 'MyTitle', foreign_key: 'person_id'
   accepts_nested_attributes_for :user, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :my_titles, reject_if: :all_blank, allow_destroy: true
-  validates :name,:last_name, presence: true
+  validates :name,:last_name,:sex, presence: true
 
 
   def is?(role)
@@ -26,5 +27,9 @@ class Person < ApplicationRecord
 
   def birthday
     super || Date.today - 18.years
+  end
+
+  def self.type_of_sex
+    %w(M F)
   end
 end

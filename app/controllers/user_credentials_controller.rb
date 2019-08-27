@@ -89,7 +89,7 @@ class UserCredentialsController < ApplicationController
     params.require(:church_man)
         .permit(:token, :id,
                 person_attributes: [
-                    :id, :name, :last_name, :ci, :phone_number, :address, :birthday,
+                    :id, :name, :last_name, :ci, :phone_number, :address, :birthday,:sex,
                     user_attributes: [:id, :email, :password, :password_confirmation]
                 ])
   end

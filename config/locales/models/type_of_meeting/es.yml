@@ -1,0 +1,10 @@
+es:
+  activerecord:
+    models:
+      person: Tipo de Reunión
+    attributes:
+      type_of_meeting:
+        name: "Nombre"
+        description: "Descripción"
+        address: "Dirección"
+        code: Código

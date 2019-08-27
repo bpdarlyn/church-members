@@ -1,0 +1,11 @@
+es:
+  activerecord:
+    models:
+      location: Ubicación
+    attributes:
+      location:
+        custom_address: Dirección de Reunión
+        lat: Latitud
+        lng: Longitud
+        address: Dirección Obtenido por Google
+        place_id: Id de Dirección de Google

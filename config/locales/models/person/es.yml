@@ -1,0 +1,17 @@
+es:
+  activerecord:
+    models:
+      person: Persona
+    attributes:
+      person:
+        name: "Nombre"
+        last_name: "Apellido"
+        address: "Dirección"
+        phone_number: "Teléfono"
+        ci: "Carnet de Identidad"
+        birthday: "Fecha de Cumpleaños"
+        sex: "Sexo"
+        user:
+          email: Correo Electrónico
+          password: Contraseña
+          password_confirmation: Confirma la Contraseña

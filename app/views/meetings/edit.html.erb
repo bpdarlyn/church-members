@@ -1,0 +1,24 @@
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Editar una Reunión Asignada
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    Rellena el Formulario
+  </div>
+  <div class="card-body">
+    <%= form_for @meeting, url: meeting_path do |f| %>
+      <%= render partial: 'layouts/errors', locals: {errors: @meeting.errors }  %>
+      <%= render partial: 'form', locals: {meeting: @meeting, f: f} %>
+      <%= f.submit("Crear",{class: 'btn btn-primary'})%>
+      <%= link_to 'Atrás', meetings_path, class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcGifp3CQViNL0f4mLs1aEX0cSH8YVhGA"></script>
+  <%= javascript_pack_tag 'main-app/src/meetings/edit'%>
+<% end %>

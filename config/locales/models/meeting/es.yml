@@ -1,0 +1,18 @@
+es:
+  activerecord:
+    models:
+      meeting: Reunión
+      location: Ubicación
+      person: Persona
+    attributes:
+      meeting:
+        first_start_date: Apertura de Reunión
+        start_date_time: Inicio Día y Hora de Reunión
+        end_date_time: Fin de Reunión
+        active: Reunión Activa ?
+        description: Descripción
+        name: Nombre
+        person_id: Persona
+        type_of_meeting_id: Tipo de Reunión
+        code: Código
+        location_id: Ubicación

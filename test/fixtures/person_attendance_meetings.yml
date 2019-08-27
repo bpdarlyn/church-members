@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  attended: false
+  person: one
+  header_attendance_meeting: one
+
+two:
+  attended: false
+  person: two
+  header_attendance_meeting: two

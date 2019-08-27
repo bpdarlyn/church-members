@@ -1,0 +1,2 @@
+class HeaderAttendanceMeeting < ApplicationRecord
+end
