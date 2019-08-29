@@ -11,8 +11,12 @@ class PeopleController < ApplicationController
         @people = @people.joins(my_titles: :title_obtained)
                       .where("title_obtaineds.code = ? and my_titles.active = true", params[:filter_code])
       end
-
     end
+
+    if current_user.is?(:churchman)
+      @people = @people.where(person_id: current_user.person.id)
+    end
+
   end
 
   def new
@@ -57,7 +61,7 @@ class PeopleController < ApplicationController
   end
 
   def update
-    @person.my_titles.where(active:true).update_all(active: false)
+    @person.my_titles.where(active: true).update_all(active: false)
     respond_to do |format|
       if @person.update(person_params)
         active_new_title = @person.my_titles.where(title_obtained_id: params[:title_obtained_id]).first
@@ -87,9 +91,9 @@ class PeopleController < ApplicationController
 
   def person_params
     params_with_leader = params.require(:person)
-        .permit(:name, :last_name, :address, :birthday, :phone_number, :ci, :sex,:person_id)
+                             .permit(:name, :last_name, :address, :birthday, :phone_number, :ci, :sex, :person_id)
     unless current_user.is?(:admin)
-      params_with_leader.merge({person_id: current_user.person_id})
+      params_with_leader = params_with_leader.merge({person_id: current_user.person_id})
     end
     params_with_leader
   end

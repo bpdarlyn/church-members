@@ -5,6 +5,6 @@ class User < ApplicationRecord
   belongs_to :person
 
   def is?(role)
-    role == self.person.rolable.class.name.downcase.to_sym
+    self.person.is?(role)
   end
 end
