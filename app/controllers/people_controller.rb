@@ -1,9 +1,9 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  # before_action :set_person, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   #region actions with views
   def index
-    @people = Person.all
     @title_breadcrum = "Persona"
     if params[:filter_code]
       @title_obtained = TitleObtained.find_by_code(params[:filter_code])
@@ -20,7 +20,6 @@ class PeopleController < ApplicationController
   end
 
   def new
-    @person = Person.new
     TitleObtained.all.each do |title_obtained|
       title = @person.my_titles.build
       title.title_obtained = title_obtained
@@ -96,6 +95,7 @@ class PeopleController < ApplicationController
       params_with_leader = params_with_leader.merge({person_id: current_user.person_id})
     end
     params_with_leader
+
   end
 
 end

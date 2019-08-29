@@ -1,74 +1,98 @@
 <% if user_signed_in? %>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Pueblo de Dios 12</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Pueblo de Dios 12</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-male"></i>
-          Generar Informes
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% current_user.person.meetings.each do |meeting| %>
-            <% type_of_meeting = meeting.type_of_meeting %>
-            <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>
-              <%= type_of_meeting.name.try(:titleize) %>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if can? :generate_meeting_assistance_report, TypeOfMeeting %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-male"></i>
+              Generar Informes
             </a>
-          <% end %>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-male"></i>
-          Integrantes
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% TitleObtained.all.each do |title_obtained| %>
-            <a class="dropdown-item" href="<%= people_path(filter_code: title_obtained.code) %>"><i class="fas fa-users mr-1"></i><%= title_obtained.name.try(:titleize).try(:pluralize) %></a>
-          <% end %>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-male"></i>
-          Reuniones
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="<%= meetings_path %>"><i class="fas fa-users mr-1"></i>Ver todas las reuniones</a>
-            <a class="dropdown-item" href="<%= new_meeting_path %>"><i class="fas fa-users mr-1"></i>Asignar Reunión</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-male"></i>
-          Cursos
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>Listado de Cursos</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>Nuevo Curso o Estudio</a>
-        </div>
-      </li>
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-cogs"></i>
-          Configuración
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<%= user_credentials_path %>"><i class="fas fa-users mr-1"></i>Usuarios</a>
-          <a class="dropdown-item" href="<%= admins_path %>"><i class="fas fa-users mr-1"></i>Administradores</a>
-          <a class="dropdown-item" href="<%= type_of_meetings_path %>"><i class="fas fa-file-alt mr-1"></i>Tipos Reuniones</a>
-          <a class="dropdown-item" href="<%= type_of_courses_path %>"><i class="fab fa-discourse mr-1"></i>Tipos Cursos o Estudios</a>
-          <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete"><i class="fas fa-sign-in-alt mr-1"></i>Salir del Sistema</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% TypeOfMeeting.all.each do |type_of_meeting| %>
+                <% if can? :generate_meeting_assistance_report, type_of_meeting  %>
+                  <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>
+                    <%= type_of_meeting.name.try(:titleize) %>
+                  </a>
+                <% end %>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+        <% if can? :manage, TitleObtained %>
+          <% titles_obtained = TitleObtained.accessible_by(current_ability) %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-male"></i>
+              Integrantes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% titles_obtained.all.each do |title_obtained| %>
+                <a class="dropdown-item" href="<%= people_path(filter_code: title_obtained.code) %>"><i class="fas fa-users mr-1"></i><%= title_obtained.name.try(:titleize).try(:pluralize) %>
+                </a>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+        <% if can? :manage, Meeting %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-male"></i>
+              Reuniones
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="<%= meetings_path %>"><i class="fas fa-users mr-1"></i>Ver todas las
+                reuniones</a>
+              <a class="dropdown-item" href="<%= new_meeting_path %>"><i class="fas fa-users mr-1"></i>Asignar
+                Reunión</a>
+            </div>
+          </li>
+        <% end %>
+        <% if can? :manage, Meeting %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-male"></i>
+              Cursos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>Listado de Cursos</a>
+              <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>Nuevo Curso o Estudio</a>
+            </div>
+          </li>
+        <% end %>
+        <% if can? :manage, Setting %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-cogs"></i>
+              Configuración
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% if can? :manage, ChurchMan %>
+                <a class="dropdown-item" href="<%= user_credentials_path %>"><i class="fas fa-users mr-1"></i>Usuarios</a>
+              <% end %>
+              <% if can? :manage, Admin %>
+                <a class="dropdown-item" href="<%= admins_path %>"><i class="fas fa-users mr-1"></i>Administradores</a>
+              <% end %>
+              <% if can? :manage, TypeOfMeeting %>
+                <a class="dropdown-item" href="<%= type_of_meetings_path %>"><i class="fas fa-file-alt mr-1"></i>Tipos
+                  Reuniones</a>
+              <% end %>
+              <% if can? :manage, TypeOfCourse %>
+                <a class="dropdown-item" href="<%= type_of_courses_path %>"><i class="fab fa-discourse mr-1"></i>Tipos
+                  Cursos o Estudios</a>
+              <% end %>
+              <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete"><i class="fas fa-sign-in-alt mr-1"></i>Salir
+                del Sistema</a>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
 
 <% end %>
