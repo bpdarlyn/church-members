@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_121852) do
+ActiveRecord::Schema.define(version: 2019_08_30_004705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2019_08_27_121852) do
     t.integer "total_attendees"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "meeting_id", null: false
+    t.index ["meeting_id"], name: "index_header_attendance_meetings_on_meeting_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -154,6 +156,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_121852) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "header_attendance_meetings", "meetings"
   add_foreign_key "meetings", "locations"
   add_foreign_key "meetings", "people"
   add_foreign_key "meetings", "type_of_meetings"

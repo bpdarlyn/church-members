@@ -1,0 +1,2 @@
+<%= f.label :meeting_id %>
+<%= f.select :meeting_id, @meetings.collect{|c| [c.full_description, c.id]}, {prompt: 'Ninguna'}, { style: 'width: 100%',class: 'custom-select js-example-basic-single'} %>

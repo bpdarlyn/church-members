@@ -1,0 +1,21 @@
+<% if current_user.is?(:churchman) %>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <% TypeOfMeeting.all.each do |type_of_meeting| %>
+    <% if can? :generate_meeting_assistance_report, type_of_meeting  %>
+      <a class="dropdown-item" href="<%= generate_meeting_report_people_path(type_of_meeting_code: type_of_meeting.code) %>"><i class="fas fa-users mr-1"></i>
+        <%= type_of_meeting.name.try(:titleize) %>
+      </a>
+    <% end %>
+  <% end %>
+</div>
+<% else %>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <% TypeOfMeeting.all.each do |type_of_meeting| %>
+      <% if can? :generate_meeting_assistance_report, type_of_meeting  %>
+        <a class="dropdown-item" href="<%= generate_meeting_report_admins_path(type_of_meeting_code: type_of_meeting.code) %>"><i class="fas fa-users mr-1"></i>
+          <%= type_of_meeting.name.try(:titleize) %>
+        </a>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

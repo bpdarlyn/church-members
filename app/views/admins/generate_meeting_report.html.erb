@@ -1,0 +1,20 @@
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Reporte de Informe Personalizado
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Subir Informe <%= @type_of_meeting.name %></h2>
+  </div>
+  <div class="card-body">
+    <%= form_for @header_attendance_meeting, url: upload_meeting_report_admins_path do |f| %>
+      <%= render partial: "admins/report_meeting/form", locals: {f: f} %>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+  <%= javascript_pack_tag 'main-app/src/people/generate_meeting_report'%>
+<% end %>

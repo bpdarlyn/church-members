@@ -13,15 +13,7 @@
               <i class="fas fa-male"></i>
               Generar Informes
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <% TypeOfMeeting.all.each do |type_of_meeting| %>
-                <% if can? :generate_meeting_assistance_report, type_of_meeting  %>
-                  <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>
-                    <%= type_of_meeting.name.try(:titleize) %>
-                  </a>
-                <% end %>
-              <% end %>
-            </div>
+            <%= render partial: 'layouts/meeting_report' %>
           </li>
         <% end %>
         <% if can? :manage, TitleObtained %>

@@ -16,6 +16,10 @@ class Meeting < ApplicationRecord
     first_start_date = Date.today
   end
 
+  def full_description
+    "#{self.name}- #{self.code}"
+  end
+
 
 
 end

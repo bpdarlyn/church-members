@@ -1,0 +1,9 @@
+<%= fields_for @header_attendance_meeting do |f| %>
+$('.js-example-basic-single').select2('destroy');
+$('#content-select-meetings').html("<%= j (render partial: 'admins/report_meeting/select_meetings', locals: {f:f}) %>");
+$('.js-example-basic-single').select2({
+    allowClear: true,
+    language: "es"
+});
+<% end %>
+

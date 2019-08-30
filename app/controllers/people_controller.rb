@@ -80,6 +80,18 @@ class PeopleController < ApplicationController
   def destroy;
   end
 
+  def generate_meeting_report
+    # @type_of_meeting = TypeOfMeeting.find_by_code(params[:type_of_meeting_code])
+    # @meeting = current_user.person.meetings.where(type_of_meeting_id: @type_of_meeting.id).first
+    @header_attendance_meeting = HeaderAttendanceMeeting.new
+    @people = Person.all
+    @meetings = []
+  end
+
+  def upload_meeting_report
+
+  end
+
   #endregion
 
   private

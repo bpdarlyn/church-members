@@ -1,0 +1,20 @@
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active" aria-current="page">
+
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Subir Informe</h2>
+  </div>
+  <div class="card-body">
+    <%= form_for @header_attendance_meeting, url: upload_meeting_report_people_path do |f| %>
+      <%= render partial: "people/report_meeting/form", locals: {f: f} %>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+  <%= javascript_pack_tag 'main-app/src/people/generate_meeting_report'%>
+<% end %>

@@ -28,11 +28,11 @@ class AdminsController < ApplicationController
 
     respond_to do |format|
       if @admin.save
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
-        format.json { render :show, status: :created, location: @admin }
+        format.html {redirect_to @admin, notice: 'Admin was successfully created.'}
+        format.json {render :show, status: :created, location: @admin}
       else
-        format.html { render :new }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @admin.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -42,11 +42,11 @@ class AdminsController < ApplicationController
   def update
     respond_to do |format|
       if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
-        format.json { render :show, status: :ok, location: @admin }
+        format.html {redirect_to @admin, notice: 'Admin was successfully updated.'}
+        format.json {render :show, status: :ok, location: @admin}
       else
-        format.html { render :edit }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @admin.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -56,19 +56,41 @@ class AdminsController < ApplicationController
   def destroy
     @admin.destroy
     respond_to do |format|
-      format.html { redirect_to admins_url, notice: 'Admin was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to admins_url, notice: 'Admin was successfully destroyed.'}
+      format.json {head :no_content}
+    end
+  end
+
+  def generate_meeting_report
+    @type_of_meeting = TypeOfMeeting.find_by_code(params[:type_of_meeting_code])
+    @header_attendance_meeting = HeaderAttendanceMeeting.new
+    @people = Person.all.joins(:meetings).where(meetings:{type_of_meeting_id: @type_of_meeting.id})
+    @meetings = Meeting.all.where(type_of_meeting: @type_of_meeting)
+  end
+
+  def upload_meeting_report
+
+  end
+
+  def on_change_select_person
+    @person = Person.find(params[:person_id])
+    @type_of_meeting = TypeOfMeeting.find_by_code(params[:type_of_meeting_code])
+    @meetings = @person.meetings.where(type_of_meeting: @type_of_meeting)
+    @header_attendance_meeting = HeaderAttendanceMeeting.new
+    respond_to do |format|
+      format.js
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin
-      @admin = Admin.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_params
-      params.require(:admin).permit(:token, :code)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin
+    @admin = Admin.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_params
+    params.require(:admin).permit(:token, :code)
+  end
 end
