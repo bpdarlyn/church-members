@@ -2,8 +2,28 @@
 $('.js-example-basic-single').select2('destroy');
 $('#content-select-meetings').html("<%= j (render partial: 'admins/report_meeting/select_meetings', locals: {f:f}) %>");
 $('.js-example-basic-single').select2({
-    allowClear: true,
     language: "es"
+});
+$('#header_attendance_meeting_meeting_id').on('select2:select', function (e) {
+    // Do something
+    var data = e.params.data
+    console.log(data);
+    $.ajax({
+        type: 'get',
+        url: $('#header_attendance_meeting_meeting_id').data('urlChangeMeeting'),
+        data: {
+            authenticity_token: $('[name="csrf-token"]')[0].content,
+            person_id: $('#person_id').val(),
+            type_of_meeting_code: $('#person_id').data('typeOfMeetingCode'),
+            meeting_id: data.id
+        },
+        success: function (data) {
+            console.log(data);
+            $('#table-attendance').bootstrapTable('destroy').bootstrapTable({
+                data: data
+            });
+        }
+    })
 });
 <% end %>
 

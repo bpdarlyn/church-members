@@ -82,6 +82,16 @@ class AdminsController < ApplicationController
     end
   end
 
+  def on_change_select_meeting
+    @header_attendance_meeting = HeaderAttendanceMeeting.new
+    @meeting = Meeting.find(params[:meeting_id])
+    @person_leader = Person.find(params[:person_id])
+    @attendance_people = Person.possible_attendances_to_meeting?(@meeting,@person_leader).order(:created_at)
+    respond_to do |format|
+      format.json
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -1,0 +1,85 @@
+<%= form_for @person, url: people_path, remote: true do |f| %>
+  <div class="modal fade bd-example-modal-lg" id="new-express-person" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Nueva Persona</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= render partial: 'layouts/errors', locals: {errors: @person.errors }  %>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', placeholder: 'Nombres' %>
+            </div>
+            <div class="form-group col-md-6">
+              <%= f.label :last_name %>
+              <%= f.text_field :last_name, class: 'form-control', placeholder: 'Apellidos' %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <%= f.label :address %>
+              <%= f.text_field :address, class: 'form-control', placeholder: 'Dirección' %>
+            </div>
+            <% if current_user.is?(:admin) %>
+              <div class="form-group col">
+                <%= f.label :person_id %>
+                <%= f.select :person_id, @people.collect {|c| ["#{c.full_name} (#{c.active_my_title.try(:title_obtained).try(:name)})", c.id]}, {prompt: 'Ninguna'}, {style: 'width: 100%', class: 'custom-select js-example-basic-single'} %>
+              </div>
+            <% end %>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <%= f.label :birthday %>
+              <%= f.date_field :birthday, class: 'custom-select mr-sm-2', placeholder: 'Fecha de Nac.' %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= f.label :phone_number %>
+              <%= f.telephone_field :phone_number, class: 'form-control', placeholder: 'Dirección' %>
+            </div>
+            <div class="form-group col-md-4">
+              <%= f.label :ci %>
+              <%= f.text_field :ci, class: 'form-control', placeholder: 'Cédula de Identidad' %>
+              <small class="text-muted">3232323 SC</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <% sex = f.object.sex %>
+            <%= f.label :sex, 'Sexo' %>
+            <%= f.label :sex, 'M' %>
+            <%= f.radio_button :sex, 'M', :checked => sex === 'M' %>
+            <%= f.label :sex, 'F' %>
+            <%= f.radio_button :sex, 'F', :checked => sex === 'F' %>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="exampleFormControlSelect1">
+                cualidades de la persona a registrar ?
+              </label>
+              <%= f.fields_for :my_titles do |tf| %>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <%= tf.object.title_obtained.try :name %>
+                  </label>
+                  <input type="radio"
+                         <%= tf.object.active ? 'checked' : nil %>
+                         name="title_obtained_id" value="<%= tf.object.title_obtained_id %>">
+                </div>
+              <% end %>
+              <small class="text-muted">selecciona uno para ingresar la cualidad actual</small>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <%= f.submit('Guardar Persona', class: 'btn btn-dark') %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

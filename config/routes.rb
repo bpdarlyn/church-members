@@ -7,11 +7,13 @@ Rails.application.routes.draw do
     get 'generate_meeting_report', on: :collection
     post 'upload_meeting_report', on: :collection
     get 'on_change_select_person', on: :collection
+    get 'on_change_select_meeting', on: :collection
   end
 
   resources :people do
     get 'generate_meeting_report', on: :collection
     post 'upload_meeting_report', on: :collection
+    get 'new_express', on: :collection
   end
 
   resources :user_credentials do

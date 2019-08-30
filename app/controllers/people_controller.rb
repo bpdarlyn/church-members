@@ -42,6 +42,7 @@ class PeopleController < ApplicationController
 
   #region logical actions
   def create
+    @people = Person.all
     @person = Person.new(person_params)
     TitleObtained.all.each do |title_obtained|
       new_title = @person.my_titles.build
@@ -53,7 +54,10 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.save
         format.html {redirect_to people_path, notice: 'Person was successfully created.'}
+        format.js {
+          render(json: [{person_model: @person}])}
       else
+        format.js
         format.html {render :new}
       end
     end
@@ -90,6 +94,19 @@ class PeopleController < ApplicationController
 
   def upload_meeting_report
 
+  end
+
+  def new_express
+    @person = Person.new
+    TitleObtained.all.each do |title_obtained|
+      title = @person.my_titles.build
+      title.title_obtained = title_obtained
+    end
+    @people = Person.all
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   #endregion

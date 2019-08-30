@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DudMain</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= javascript_pack_tag 'application'%>
-    <%= yield :custom_head %>
-  </head>
+<head>
+  <title>DudMain</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_pack_tag 'application' %>
+  <%= yield :custom_head %>
+</head>
 
-  <body>
-  <%= render 'layouts/menu' %>
-  <%= render 'layouts/breadcrumb' %>
-  <div class="container">
-    <%= yield %>
-  </div>
-    <%= yield :scripts %>
-  </body>
+<body>
+<%= render 'layouts/menu' %>
+<%= render 'layouts/breadcrumb' %>
+<div class="container">
+  <div class="hold-modal" id="hold-modal"></div>
+  <%= yield %>
+</div>
+<%= javascript_pack_tag 'application' %>
+<%= yield :scripts %>
+</body>
 </html>

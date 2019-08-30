@@ -3,18 +3,21 @@
     Reporte de Informe Personalizado
   </li>
 <% end %>
-
+<%= form_for @header_attendance_meeting, url: upload_meeting_report_admins_path do |f| %>
 <div class="card">
   <div class="card-header">
     <h2>Subir Informe <%= @type_of_meeting.name %></h2>
   </div>
   <div class="card-body">
-    <%= form_for @header_attendance_meeting, url: upload_meeting_report_admins_path do |f| %>
       <%= render partial: "admins/report_meeting/form", locals: {f: f} %>
-    <% end %>
+  </div>
+  <div class="card-footer text-muted">
+    <%= f.submit("Guardar Informe",{class: 'btn btn-primary'})%>
+    <%= link_to 'Atrás', root_path, class: 'btn btn-danger' %>
   </div>
 </div>
+<% end %>
 
 <% content_for :scripts do %>
-  <%= javascript_pack_tag 'main-app/src/people/generate_meeting_report'%>
+  <%= javascript_pack_tag 'main-app/src/admins/generate_meeting_report'%>
 <% end %>

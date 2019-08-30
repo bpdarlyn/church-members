@@ -1,0 +1,10 @@
+$('div.modal-backdrop').remove();
+<% unless @person.valid? %>
+<%= fields_for @person do |f| %>
+$('#hold-modal').html("<%= j (render partial: 'people/form_express', locals: {f:f}) %>");
+<% end %>
+$('.js-example-basic-single').select2({
+    language: "es"
+});
+$('#new-express-person').modal('show');
+<% end %>

@@ -24,6 +24,18 @@
     <%= f.label :prayer %>
     <%= f.text_field :prayer , class: 'form-control'%>
   </div>
+</div>
 
-
+<div class="row">
+  <div class="col-12">
+    <h3 class="text-info text-center">
+      Asistencia
+    </h3>
+    <a href="<%= new_express_people_path %>" data-remote="true" class="btn btn-warning mb-3 float-right button">
+      Registrar Persona
+    </a>
+  </div>
+  <div class="col-12">
+    <%= render partial: 'admins/report_meeting/attendance_table' %>
+  </div>
 </div>
