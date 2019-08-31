@@ -2,13 +2,13 @@
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
-import './main-app/styles/app.scss';
+// jquery, popper
+require('./main-app/styles/app.scss');
 require("@rails/ujs").start();
 require("@rails/activestorage").start();
 require("channels");
-import 'popper.js/dist/popper.min';
-import 'bootstrap/dist/js/bootstrap';
-import 'bootstrap-table';
-import "cocoon-js";
-
-
+require('bootstrap/dist/js/bootstrap');
+require('bootstrap-table');
+require('cocoon-js');
+require('select2');
+require('select2/dist/js/i18n/es');

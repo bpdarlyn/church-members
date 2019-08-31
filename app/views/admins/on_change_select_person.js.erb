@@ -5,9 +5,7 @@ $('.js-example-basic-single').select2({
     language: "es"
 });
 $('#header_attendance_meeting_meeting_id').on('select2:select', function (e) {
-    // Do something
     var data = e.params.data
-    console.log(data);
     $.ajax({
         type: 'get',
         url: $('#header_attendance_meeting_meeting_id').data('urlChangeMeeting'),
@@ -19,9 +17,16 @@ $('#header_attendance_meeting_meeting_id').on('select2:select', function (e) {
         },
         success: function (data) {
             console.log(data);
-            $('#table-attendance').bootstrapTable('destroy').bootstrapTable({
-                data: data
-            });
+            if (data.attendance_control) {
+                $('#total-attendees-custom').addClass('d-none')
+                $('#has-attendance-control').removeClass('d-none')
+                $('#table-attendance').bootstrapTable('destroy').bootstrapTable({
+                    data: data.attendance_people
+                });
+            }else{
+                $('#total-attendees-custom').removeClass('d-none')
+                $('#has-attendance-control').addClass('d-none')
+            }
         }
     })
 });

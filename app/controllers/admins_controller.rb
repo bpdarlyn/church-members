@@ -62,14 +62,40 @@ class AdminsController < ApplicationController
   end
 
   def generate_meeting_report
+    @attendance_people = []
     @type_of_meeting = TypeOfMeeting.find_by_code(params[:type_of_meeting_code])
     @header_attendance_meeting = HeaderAttendanceMeeting.new
-    @people = Person.all.joins(:meetings).where(meetings:{type_of_meeting_id: @type_of_meeting.id})
+    @people = Person.all.joins(:meetings).where(meetings: {type_of_meeting_id: @type_of_meeting.id})
     @meetings = Meeting.all.where(type_of_meeting: @type_of_meeting)
   end
 
   def upload_meeting_report
-
+    @attendance_people = []
+    @type_of_meeting = TypeOfMeeting.find_by_code(params[:type_of_meeting_code])
+    @header_attendance_meeting = HeaderAttendanceMeeting.new(header_attendance_params)
+    @person = Person.find(params[:person_id]) if params[:person_id].presence
+    @meetings = Meeting.all.where(type_of_meeting: @type_of_meeting)
+    @people = Person.all.joins(:meetings).where(meetings: {type_of_meeting_id: @type_of_meeting.id})
+    if @header_attendance_meeting.meeting_id and @person
+      if params[:attendances].present?
+        params[:attendances].each do |k, v|
+          person_attendance_meeting = @header_attendance_meeting.person_attendance_meetings.build
+          person_attendance_meeting.person_id = k
+          person_attendance_meeting.attended = true
+        end
+      end
+      @meeting = Meeting.find(@header_attendance_meeting.meeting_id)
+      @attendance_people = Person.possible_attendances_to_meeting?(@meeting, @person).order(created_at: :desc)
+    end
+    respond_to do |format|
+      if @header_attendance_meeting.save
+        format.html {redirect_to root_path, notice: 'Uploaded new meeting report'}
+      else
+        format.html {
+          render :generate_meeting_report
+        }
+      end
+    end
   end
 
   def on_change_select_person
@@ -86,7 +112,7 @@ class AdminsController < ApplicationController
     @header_attendance_meeting = HeaderAttendanceMeeting.new
     @meeting = Meeting.find(params[:meeting_id])
     @person_leader = Person.find(params[:person_id])
-    @attendance_people = Person.possible_attendances_to_meeting?(@meeting,@person_leader).order(:created_at)
+    @attendance_people = Person.possible_attendances_to_meeting?(@meeting, @person_leader).order(:created_at)
     respond_to do |format|
       format.json
     end
@@ -97,6 +123,11 @@ class AdminsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_admin
     @admin = Admin.find(params[:id])
+  end
+
+  def header_attendance_params
+    params.require(:header_attendance_meeting)
+        .permit(:id, :topic, :attendance_date, :offerings, :prayer, :meeting_id, :total_attendees)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

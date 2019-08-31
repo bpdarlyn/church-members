@@ -5,6 +5,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_pack_tag 'application' %>
+  <%= javascript_pack_tag 'application' %>
   <%= yield :custom_head %>
 </head>
 
@@ -15,7 +16,6 @@
   <div class="hold-modal" id="hold-modal"></div>
   <%= yield %>
 </div>
-<%= javascript_pack_tag 'application' %>
 <%= yield :scripts %>
 </body>
 </html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_30_004705) do
+ActiveRecord::Schema.define(version: 2019_08_31_203635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_004705) do
     t.bigint "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "attendance_control", default: true
     t.index ["location_id"], name: "index_meetings_on_location_id"
     t.index ["person_id"], name: "index_meetings_on_person_id"
     t.index ["type_of_meeting_id"], name: "index_meetings_on_type_of_meeting_id"

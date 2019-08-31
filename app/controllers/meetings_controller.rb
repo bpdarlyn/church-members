@@ -70,6 +70,7 @@ class MeetingsController < ApplicationController
     params.require(:meeting).permit(:code, :start_date_time,
                                     :end_date_time, :active, :type_of_meeting_id,
                                     :person_id, :name, :description,
+                                    :attendance_control,
                                     location_attributes: [:custom_address, :lat, :lng, :place_id, :address]
     )
   end

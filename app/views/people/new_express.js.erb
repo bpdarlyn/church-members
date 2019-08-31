@@ -1,3 +1,4 @@
+
 <%= fields_for @person do |f| %>
 $('#hold-modal').html("<%= j (render partial: 'people/form_express', locals: {f:f}) %>");
 <% end %>

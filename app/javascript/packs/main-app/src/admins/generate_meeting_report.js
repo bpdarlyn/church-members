@@ -1,8 +1,3 @@
-import 'select2';
-import 'select2/dist/js/i18n/es';
-import 'bootstrap';
-import 'bootstrap-table';
-
 var $table = $('#table-attendance');
 
 $(document).ready(() => {
@@ -13,7 +8,6 @@ $(document).ready(() => {
     $('#person_id').on('select2:select', function (e) {
         // Do something
         var data = e.params.data;
-        console.log(data);
         $.ajax({
             type: 'get',
             url: $('#person_id').data('linkChangeMeetings'),
@@ -24,16 +18,11 @@ $(document).ready(() => {
             }
         })
     });
-    $table.bootstrapTable();
 
-    // $('#new_person').bind('ajax:success', function( data, status, xhr) {
-    //     alert("success");
-    // });
-
-    $(document).on('ajax:success','#new_person',function(data, status, xhr){
+    $(document).on('ajax:success', '#new_person', function (data, status, xhr) {
         // will do something
         let person = data.detail[0];
-        if (person){
+        if (person) {
             person = JSON.parse(person);
             person = person[0].person_model;
             $table.bootstrapTable('prepend', {

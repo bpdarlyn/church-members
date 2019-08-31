@@ -40,6 +40,13 @@
     <%= f.label :active, class: 'form-check-label' %>
   </div>
 </div>
+<div class="form-group">
+  <div class="form-check">
+    <%= f.check_box :attendance_control, class: 'form-check-input' %>
+    <%= f.label :attendance_control, class: 'form-check-label' %>
+  </div>
+</div>
+
 <%= f.fields_for :location do |l_f| %>
     <div class="form-group ">
       <%= l_f.label :custom_address %>

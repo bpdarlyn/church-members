@@ -10,6 +10,7 @@
     "bootstrap": "4.3.1",
     "bootstrap-table": "1.15.3",
     "cocoon-js": "0.0.5",
+    "expose-loader": "0.7.5",
     "jquery": "3.4.1",
     "popper.js": "1.15.0",
     "select2": "4.0.9",
@@ -19,6 +20,6 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.10.1",
     "compass-mixins": "0.12.10",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.8.0"
   }
 }

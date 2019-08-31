@@ -1,7 +1,7 @@
 <div class="form-row">
   <div class="form-group col-md-6">
     <%= label_tag :person_id %>
-    <%= select_tag 'person_id', options_for_select(@people.collect{|c| ["#{c.full_name} (#{c.active_my_title.try(:title_obtained).try(:name)})", c.id]}), { prompt: 'Ninguna' ,style: 'width: 100%',class: 'custom-select js-example-basic-single',"data-link-change-meetings": on_change_select_person_admins_path, "data-type-of-meeting-code": @type_of_meeting.code } %>
+    <%= select_tag 'person_id', options_for_select(@people.collect{|c| ["#{c.full_name} (#{c.active_my_title.try(:title_obtained).try(:name)})", c.id]}, @person.try(:id)), { prompt: 'Ninguna' ,style: 'width: 100%',class: 'custom-select js-example-basic-single',"data-link-change-meetings": on_change_select_person_admins_path, "data-type-of-meeting-code": @type_of_meeting.code } %>
   </div>
   <div class="form-group col-md-6" id="content-select-meetings">
     <%= render partial: 'admins/report_meeting/select_meetings', locals: {f: f} %>
@@ -18,24 +18,33 @@
   </div>
   <div class="form-group col-12 col-sm-12 col-md-3">
     <%= f.label :offerings %>
-    <%= f.number_field :offerings , class: 'form-control'%>
+    <%= f.number_field :offerings, step: 0.01 , class: 'form-control'%>
   </div>
-  <div class="form-group col-12 col-sm-12 col-md-3">
-    <%= f.label :prayer %>
-    <%= f.text_field :prayer , class: 'form-control'%>
+  <% display_none = unless @meeting.present? and @meeting.attendance_control %>
+
+  <div class="form-group col-12 col-sm-12 col-md-3 <%= display_none ? 'd-none': nil %>" id="total-attendees-custom">
+    <%= f.label :total_attendees%>
+    <%= f.number_field :total_attendees, class: 'form-control'%>
   </div>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.label :prayer %>
+  <%= f.text_field :prayer , class: 'form-control'%>
 </div>
 
-<div class="row">
-  <div class="col-12">
-    <h3 class="text-info text-center">
-      Asistencia
-    </h3>
-    <a href="<%= new_express_people_path %>" data-remote="true" class="btn btn-warning mb-3 float-right button">
-      Registrar Persona
-    </a>
-  </div>
-  <div class="col-12">
-    <%= render partial: 'admins/report_meeting/attendance_table' %>
+<div id="has-attendance-control" class="<%= display_none ? 'd-none': nil %>">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-info text-center">
+        Asistencia
+      </h3>
+      <a href="<%= new_express_people_path %>" data-remote="true" class="btn btn-warning mb-3 float-right button">
+        Registrar Persona
+      </a>
+    </div>
+    <div class="col-12">
+      <%= render partial: 'admins/report_meeting/attendance_table' %>
+    </div>
   </div>
 </div>

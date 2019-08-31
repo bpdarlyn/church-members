@@ -15,9 +15,5 @@ module DudMain
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.time_zone = 'America/La_Paz'
-    config.active_record.default_timezone = :local # Or :utc
-    config.i18n.default_locale = :'es'
   end
 end
