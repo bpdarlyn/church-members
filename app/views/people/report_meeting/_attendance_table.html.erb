@@ -1,0 +1,30 @@
+<table
+  id="table-attendance"
+  data-click-to-select="true"
+  data-id-field="person_id"
+  data-select-item-name="attendances[]"
+  data-toggle="table"
+>
+  <thead>
+  <tr>
+    <th data-checkbox="true">Asistió?</th>
+    <th data-field="person_id">Identificador</th>
+    <th data-field="full_name">Nombre Completo</th>
+    <th data-field="role_type">Rol</th>
+    <th data-field="birthday">Cumpleaños</th>
+    <th data-field="phone_number">Número de Teléfono</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @attendance_people.each do |person| %>
+    <tr>
+      <td></td>
+      <td><%= person.id %></td>
+      <td><%= person.full_name %></td>
+      <td><%= person.active_my_title.try(:title_obtained).try(:name) %></td>
+      <td><%= person.birthday %></td>
+      <td><%= person.phone_number %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

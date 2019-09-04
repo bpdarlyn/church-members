@@ -13,7 +13,7 @@ class Meeting < ApplicationRecord
 
   # Callbacks
   before_create do
-    first_start_date = Date.today
+    self.first_start_date = Date.today
   end
 
   def full_description

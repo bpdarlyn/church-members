@@ -11,7 +11,7 @@ class Ability
       can :manage, Person, person_id: user.person_id
       can :manage, TitleObtained, code: 1..4
       can :manage, Setting
-      can :generate_meeting_assistance_report, TypeOfMeeting, id: user.person.meetings.pluck(:type_of_meeting_id)
+      can :generate_meeting_assistance_report, TypeOfMeeting, id: user.person.meetings.where(active: true).pluck(:type_of_meeting_id)
     elsif user.is?(:admin)
       can :manage, :all
     end

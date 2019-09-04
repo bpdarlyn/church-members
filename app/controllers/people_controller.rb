@@ -65,14 +65,13 @@ class PeopleController < ApplicationController
 
   def update
     @person.my_titles.where(active: true).update_all(active: false)
+    active_new_title = @person.my_titles.where(title_obtained_id: params[:title_obtained_id]).first
+    active_new_title ||= @person.my_titles.build
+    active_new_title.title_date = Date.today
+    active_new_title.active = true
+    active_new_title.save
     respond_to do |format|
       if @person.update(person_params)
-        active_new_title = @person.my_titles.where(title_obtained_id: params[:title_obtained_id]).first
-        if active_new_title
-          active_new_title.title_date = Date.today
-          active_new_title.active = true
-          active_new_title.save
-        end
         format.html {redirect_to people_path, notice: 'Person was successfully updated.'}
       else
         @people = Person.all
@@ -109,9 +108,49 @@ class PeopleController < ApplicationController
     end
   end
 
+  def generate_meeting_report
+    @attendance_people = []
+    @type_of_meeting = TypeOfMeeting.find_by_code(params[:type_of_meeting_code])
+    @meeting = current_user.person.meetings.where(type_of_meeting: @type_of_meeting, active: true).first
+    @header_attendance_meeting = HeaderAttendanceMeeting.new(meeting: @meeting)
+    @attendance_people = Person.possible_attendances_to_meeting?(@meeting, current_user.person).order(created_at: :desc)
+  end
+
+  def upload_meeting_report
+    @attendance_people = []
+    @type_of_meeting = TypeOfMeeting.find_by_code(params[:type_of_meeting_code])
+    @header_attendance_meeting = HeaderAttendanceMeeting.new(header_attendance_params)
+    @person = current_user.person
+    @meeting = Meeting.find(@header_attendance_meeting.meeting_id)
+    @attendance_people = Person.possible_attendances_to_meeting?(@meeting, @person).order(created_at: :desc)
+    if @header_attendance_meeting.meeting_id and @person
+      if params[:attendances].present?
+        params[:attendances].each do |k, v|
+          person_attendance_meeting = @header_attendance_meeting.person_attendance_meetings.build
+          person_attendance_meeting.person_id = k
+          person_attendance_meeting.attended = true
+        end
+      end
+    end
+    respond_to do |format|
+      if @header_attendance_meeting.save
+        format.html {redirect_to root_path, notice: 'Uploaded new meeting report'}
+      else
+        format.html {
+          render :generate_meeting_report
+        }
+      end
+    end
+  end
+
   #endregion
 
   private
+
+  def header_attendance_params
+    params.require(:header_attendance_meeting)
+        .permit(:id, :topic, :attendance_date, :offerings, :prayer, :meeting_id, :total_attendees)
+  end
 
   def set_person
     @person = Person.find(params[:id])
