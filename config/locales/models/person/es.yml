@@ -12,7 +12,3 @@ es:
         birthday: "Fecha de Cumpleaños"
         sex: "Sexo"
         person_id: Persona a Cargo
-        user:
-          email: Correo Electrónico
-          password: Contraseña
-          password_confirmation: Confirma la Contraseña

@@ -2,8 +2,6 @@ es:
   activerecord:
     models:
       meeting: Reunión
-      location: Ubicación
-      person: Persona
     attributes:
       meeting:
         first_start_date: Apertura de Reunión
@@ -16,3 +14,4 @@ es:
         type_of_meeting_id: Tipo de Reunión
         code: Código
         location_id: Ubicación
+        attendance_control: Control de Asistencia

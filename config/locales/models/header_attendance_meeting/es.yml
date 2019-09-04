@@ -1,0 +1,13 @@
+es:
+  activerecord:
+    models:
+      header_attendance_meeting: Asistencia de Reunión
+    attributes:
+      header_attendance_meeting:
+        topic: Tema que se habló
+        attendance_date: Fecha de informe
+        offerings: Dinero Recaudado
+        prayer: Motivos de Oración
+        created_by: Creado por
+        validated: Informe Validado?
+        total_attendees: Total Asistentes
