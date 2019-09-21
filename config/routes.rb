@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   #region resources
   resources :type_of_meetings, :meetings,
-            :type_of_courses, :church_men, :title_obtaineds
+            :type_of_courses, :church_men, :title_obtaineds, :courses
 
   resources :admins do
     get 'generate_meeting_report', on: :collection

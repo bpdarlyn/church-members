@@ -1,0 +1,23 @@
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Nuevo Curso
+  </li>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    Rellena el Formulario
+  </div>
+  <div class="card-body">
+    <%= form_for @course do |f| %>
+      <%= render partial: 'layouts/errors', locals: {errors: @course.errors }  %>
+      <%= render partial: 'form', locals: {course: @course, f: f} %>
+      <%= f.submit("Guardar",{class: 'btn btn-primary'})%>
+      <%= link_to 'Atrás', courses_path, class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+
+<% end %>

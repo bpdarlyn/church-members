@@ -1,0 +1,63 @@
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Listado Cursos Activos
+  </li>
+<% end %>
+
+<div class="d-flex position-absolute" style="bottom: 10%; right: 2%">
+  <a  href="<%= new_course_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
+    <i class="fas fa-plus text-white"></i>
+  </a>
+</div>
+
+<div class="row">
+  <div class="col shadow-sm">
+    <table
+      data-toggle="table"
+      data-search="true"
+      data-show-refresh="true"
+      data-show-toggle="true"
+    >
+      <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Inscripciónes desde</th>
+        <th>Fecha de Inicio</th>
+        <th>Mínimo de Personas Inscritas</th>
+        <th>Personas Inscritas</th>
+        <th>Total Recaudado</th>
+        <th>Costo por Persona</th>
+        <th>Tipo de Curso</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= l course.pre_enrollment %></td>
+          <td><%= l course.start_date %></td>
+          <td><%=  course.min_people %></td>
+          <td><%=  course.total_people_inscription %></td>
+          <td><%=  number_to_currency(course.total_incoming) %></td>
+          <td><%=  number_to_currency(course.amount_by_person) %></td>
+          <td><%=  course.type_of_course.try(:name) %></td>
+          <td>
+            <a href="<%= course_path(course) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-eye"></i>
+            </a>
+            <a href="<%= edit_course_path(course) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-edit"></i>
+            </a>
+
+            <%= link_to course, method: :delete,"title":"Tooltip on top", "data-placement:":"top","data-toggle": "tooltip" ,class: 'text-danger', data: { confirm: 'Are you sure?' }  do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'Título del Curso' %>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :type_of_course_id %>
+    <%= f.select :type_of_course_id, @type_of_courses.collect{|c| [c.name, c.id]}, {prompt: 'Ninguno'}, { class: 'custom-select'} %>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :start_date %>
+    <%= f.date_field :start_date, min: Date.today ,class: 'form-control' %>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :end_date %>
+    <%= f.date_field :end_date, min: Date.today, class: 'form-control'%>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :pre_enrollment %>
+    <%= f.date_field :pre_enrollment, min: Date.today ,class: 'form-control' %>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :end_enrollment %>
+    <%= f.date_field :end_enrollment, min: Date.today, class: 'form-control' %>
+  </div>
+  <div class="form-group col-md-4">
+    <%= f.label :min_people %>
+    <%= f.number_field :min_people, class: 'form-control' %>
+  </div>
+
+  <div class="form-group col-md-4">
+    <%= f.label :max_people %>
+    <%= f.number_field :max_people, class: 'form-control' %>
+  </div>
+
+
+  <div class="form-group col-md-4">
+    <%= f.label :amount_by_person %>
+    <%= f.number_field :amount_by_person, class: 'form-control' %>
+  </div>
+
+  <div class="form-group col-md-12 d-flex align-items-center">
+    <div class="form-check">
+      <%= f.check_box :attendance_control, class: 'form-check-input' %>
+      <%= f.label :attendance_control, class: 'form-check-label' %>
+    </div>
+  </div>
+</div>
