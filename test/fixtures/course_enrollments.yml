@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  already_paid: false
+  partial_payment: 1.5
+  course: one
+
+two:
+  person: two
+  already_paid: false
+  partial_payment: 1.5
+  course: two

@@ -1,31 +1,50 @@
-<p id="notice"><%= notice %></p>
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Listado de Cursos
+  </li>
+<% end %>
 
-<h1>Type Of Courses</h1>
+<div class="d-flex position-absolute" style="bottom: 10%; right: 2%">
+  <a  href="<%= new_type_of_course_path %>" class="btn shadow btn-lg bg-dark rounded-pill">
+    <i class="fas fa-plus text-white"></i>
+  </a>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Code</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @type_of_courses.each do |type_of_course| %>
+<div class="row">
+  <div class="col shadow-sm">
+    <table
+      data-toggle="table"
+      data-search="true"
+      data-show-refresh="true"
+      data-show-toggle="true"
+    >
+      <thead>
       <tr>
-        <td><%= type_of_course.name %></td>
-        <td><%= type_of_course.description %></td>
-        <td><%= type_of_course.code %></td>
-        <td><%= link_to 'Show', type_of_course %></td>
-        <td><%= link_to 'Edit', edit_type_of_course_path(type_of_course) %></td>
-        <td><%= link_to 'Destroy', type_of_course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Pre-requisios</th>
+        <th>Acciones</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Type Of Course', new_type_of_course_path %>
+      </thead>
+      <tbody>
+      <% @type_of_courses.each do |type_of_course| %>
+        <tr>
+          <td><%= type_of_course.code %></td>
+          <td><%= type_of_course.name %></td>
+          <td><%= type_of_course.description %></td>
+          <td><%= type_of_course.prerequisite_type_of_courses.map(&:name).join(',') %></td>
+          <td>
+            <a href="<%= edit_type_of_course_path(type_of_course) %>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+              <i class="fas fa-edit"></i>
+            </a>
+            <%= link_to type_of_course, method: :delete,"title":"Tooltip on top", "data-placement:":"top","data-toggle": "tooltip" ,class: 'text-danger', data: { confirm: 'Are you sure?' }  do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

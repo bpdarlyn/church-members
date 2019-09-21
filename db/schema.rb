@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_31_203635) do
+ActiveRecord::Schema.define(version: 2019_09_21_193639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,43 @@ ActiveRecord::Schema.define(version: 2019_08_31_203635) do
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "course_enrollments", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.boolean "already_paid"
+    t.float "partial_payment"
+    t.bigint "course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_course_enrollments_on_course_id"
+    t.index ["person_id"], name: "index_course_enrollments_on_person_id"
+  end
+
+  create_table "course_topics", force: :cascade do |t|
+    t.string "topic_name"
+    t.bigint "type_of_course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["type_of_course_id"], name: "index_course_topics_on_type_of_course_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "total_attendes", default: 0
+    t.integer "total_people_inscription", default: 0
+    t.date "pre_enrollment"
+    t.date "end_enrollment"
+    t.integer "min_people", default: 0
+    t.integer "max_people", default: 0
+    t.float "amount_by_person", default: 0.0
+    t.boolean "attendance_control", default: false
+    t.float "total_incoming", default: 0.0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "type_of_course_id", null: false
+    t.index ["type_of_course_id"], name: "index_courses_on_type_of_course_id"
   end
 
   create_table "header_attendance_meetings", force: :cascade do |t|
@@ -119,6 +156,15 @@ ActiveRecord::Schema.define(version: 2019_08_31_203635) do
     t.index ["type_of_meeting_id"], name: "index_pre_attendance_meetings_on_type_of_meeting_id"
   end
 
+  create_table "prerequisite_courses", force: :cascade do |t|
+    t.bigint "type_of_course_id", null: false
+    t.bigint "dependency_type_of_course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dependency_type_of_course_id"], name: "index_prerequisite_courses_on_dependency_type_of_course_id"
+    t.index ["type_of_course_id"], name: "index_prerequisite_courses_on_type_of_course_id"
+  end
+
   create_table "title_obtaineds", force: :cascade do |t|
     t.string "title_type"
     t.string "name"
@@ -157,6 +203,10 @@ ActiveRecord::Schema.define(version: 2019_08_31_203635) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "course_enrollments", "courses"
+  add_foreign_key "course_enrollments", "people"
+  add_foreign_key "course_topics", "type_of_courses"
+  add_foreign_key "courses", "type_of_courses"
   add_foreign_key "header_attendance_meetings", "meetings"
   add_foreign_key "meetings", "locations"
   add_foreign_key "meetings", "people"
@@ -168,4 +218,6 @@ ActiveRecord::Schema.define(version: 2019_08_31_203635) do
   add_foreign_key "person_attendance_meetings", "people"
   add_foreign_key "pre_attendance_meetings", "title_obtaineds"
   add_foreign_key "pre_attendance_meetings", "type_of_meetings"
+  add_foreign_key "prerequisite_courses", "type_of_courses"
+  add_foreign_key "prerequisite_courses", "type_of_courses", column: "dependency_type_of_course_id"
 end

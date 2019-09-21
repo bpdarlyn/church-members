@@ -1,32 +1,48 @@
-<%= form_with(model: type_of_course, local: true) do |form| %>
-  <% if type_of_course.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(type_of_course.errors.count, "error") %> prohibited this type_of_course from being saved:</h2>
+<div class="form-row">
+  <div class="form-group col-md-5">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', placeholder: 'Nombre del Curso' %>
+  </div>
+  <div class="form-group col-md-6">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control', placeholder: 'Descripción' %>
+  </div>
+  <div class="form-group col-md-1">
+    <%= f.label :code %>
+    <%= f.number_field :code, class: 'form-control', placeholder: 'Código' %>
+  </div>
+</div>
 
-      <ul>
-        <% type_of_course.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div class="row">
+  <div class="col-12 col-md-6 col-lg-6">
+    <div class="card">
+      <div class="card-header text-center">
+        Temas
+      </div>
+      <div class="card-body">
+        <%= f.fields_for :course_topics do |course_topic| %>
+          <div class="form-row">
+            <%= render 'course_topic_fields', f: course_topic %>
+          </div>
         <% end %>
-      </ul>
+        <%= link_to_add_association 'Agregar Temas', f, :course_topics, {class: 'btn btn-outline-primary btn-sm', role: 'button'} %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  </div>
+  <div class="col-12 col-md-6 col-lg-6">
+    <div class="card">
+      <div class="card-header text-center">
+        Pre Requisito de Asistencia
+      </div>
+      <div class="card-body">
+        <%= f.fields_for :prerequisites do |prerequisite| %>
+          <div class="form-row">
+            <%= render 'prerequisite_fields', f: prerequisite %>
+          </div>
+        <% end %>
+        <%= link_to_add_association 'Agregar Pre-requisito', f, :prerequisites, {class: 'btn btn-outline-primary btn-sm', role: 'button'} %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :code %>
-    <%= form.number_field :code %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

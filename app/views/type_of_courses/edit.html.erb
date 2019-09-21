@@ -1,6 +1,23 @@
-<h1>Editing Type Of Course</h1>
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Editar un Tipo de Curso
+  </li>
+<% end %>
 
-<%= render 'form', type_of_course: @type_of_course %>
+<div class="card">
+  <div class="card-header">
+    Rellena el Formulario
+  </div>
+  <div class="card-body">
+    <%= form_for @type_of_course do |f| %>
+      <%= render partial: 'layouts/errors', locals: {errors: @type_of_course.errors }  %>
+      <%= render partial: 'form', locals: {type_of_course: @type_of_course, f: f} %>
+      <%= f.submit("Guardar",{class: 'btn btn-primary'})%>
+      <%= link_to 'Atrás', type_of_courses_path, class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</div>
 
-<%= link_to 'Show', @type_of_course %> |
-<%= link_to 'Back', type_of_courses_path %>
+<% content_for :scripts do %>
+
+<% end %>

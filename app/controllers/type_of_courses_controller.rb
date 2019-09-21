@@ -15,17 +15,19 @@ class TypeOfCoursesController < ApplicationController
   # GET /type_of_courses/new
   def new
     @type_of_course = TypeOfCourse.new
+    @type_of_courses = TypeOfCourse.all
   end
 
   # GET /type_of_courses/1/edit
   def edit
+    @type_of_courses = TypeOfCourse.all
   end
 
   # POST /type_of_courses
   # POST /type_of_courses.json
   def create
     @type_of_course = TypeOfCourse.new(type_of_course_params)
-
+    @type_of_courses = TypeOfCourse.all
     respond_to do |format|
       if @type_of_course.save
         format.html { redirect_to @type_of_course, notice: 'Type of course was successfully created.' }
@@ -40,6 +42,7 @@ class TypeOfCoursesController < ApplicationController
   # PATCH/PUT /type_of_courses/1
   # PATCH/PUT /type_of_courses/1.json
   def update
+    @type_of_courses = TypeOfCourse.all
     respond_to do |format|
       if @type_of_course.update(type_of_course_params)
         format.html { redirect_to @type_of_course, notice: 'Type of course was successfully updated.' }
@@ -69,6 +72,9 @@ class TypeOfCoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def type_of_course_params
-      params.require(:type_of_course).permit(:name, :description, :code)
+      params.require(:type_of_course).permit(:name, :description, :code,
+                                             course_topics_attributes: [:id,:_destroy,:topic_name],
+                                             prerequisites_attributes: [:id,:_destroy,:dependency_type_of_course_id]
+      )
     end
 end
