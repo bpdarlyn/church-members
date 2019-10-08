@@ -1,2 +1,144 @@
-<h1>Courses#show</h1>
-<p>Find me in app/views/courses/show.html.erb</p>
+<div class="row mt-5 justify-content-end">
+  <div class="btn-toolbar" role="toolbar" aria-label="Herramientas para cursos">
+    <div class="btn-group" role="group" aria-label="First group">
+      <a role="button" href="<%= enrollments_course_path %>" class="btn btn-info text-white mr-1">
+        <i class="fas fa-file mr-2">
+          Inscripciones
+        </i>
+      </a>
+      <button type="button" class="btn btn-info">
+        <i class="fas fa-book-open">
+          Control de Asistencia
+        </i>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col">
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h2>Datos de <%= @course.name %></h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-md-6">
+          <span class="font-weight-bold">
+            Inicio:
+            </span>
+            <span class="font-italic">
+              <%= l @course.start_date, format: :long %>
+            </span>
+          </div>
+          <div class="col col-md-6">
+            <span class="font-weight-bold">
+              Fin:
+            </span>
+            <span class="font-italic">
+              <%= l @course.end_date, format: :long %>
+            </span>
+          </div>
+          <div class="col-12 col-md-6">
+            <span class="font-weight-bold">
+              Pre-Inscripción:
+            </span>
+            <span class="font-italic">
+              <%= l @course.pre_enrollment, format: :long %>
+            </span>
+          </div>
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Mínimo de Personas:
+            </span>
+            <span class="font-italic">
+              <%= @course.min_people %>
+            </span>
+          </div>
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Máximo de Personas:
+            </span>
+            <span class="font-italic">
+              <%= @course.max_people %>
+            </span>
+          </div>
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Personas Inscritas:
+            </span>
+            <span class="font-italic">
+              <%= @course.total_people_inscription %>
+            </span>
+          </div>
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Se controla asistencia?:
+            </span>
+            <span class="font-italic">
+              <input type="checkbox" <%= @course.attendance_control? ? 'checked' : nil %> disabled>
+            </span>
+          </div>
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Precio:
+            </span>
+            <span class="badge badge-primary">
+              <%= number_to_currency(@course.amount_by_person) %>
+            </span>
+          </div>
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Total Recaudado:
+            </span>
+            <span class="badge badge-success">
+              <%= number_to_currency(@course.total_incoming) %>
+            </span>
+          </div>
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Temas:
+            </span>
+            <% @course.type_of_course.course_topics.each do |t| %>
+              <span class="badge badge-warning">
+                <%= t.topic_name  %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="col-12 col-md-12">
+            <span class="font-weight-bold">
+              Pre-requisitos:
+            </span>
+            <% @course.type_of_course.prerequisite_type_of_courses.each do |p| %>
+              <span class="badge badge-info">
+                <%= p.name  %>
+              </span>
+            <% end %>
+          </div>
+
+
+
+
+
+          <div class="col-md-12">
+            <span class="font-weight-bold">Es viable realizar el curso?</span>
+
+            <span class="badge badge-danger">No</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-3">
+    <a href="<%= courses_path %>" role="button" class="btn btn-outline-primary">
+      Volver
+    </a>
+  </div>
+</div>

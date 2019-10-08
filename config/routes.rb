@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     get 'on_change_select_meeting', on: :collection
   end
 
+  resources :courses do
+    get 'enrollments', on: :member
+  end
+
   resources :people do
     get 'generate_meeting_report', on: :collection
     post 'upload_meeting_report', on: :collection

@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :enrollments]
   def index
     @courses = Course.all
   end
@@ -40,6 +40,9 @@ class CoursesController < ApplicationController
   end
 
   def destroy
+  end
+
+  def enrollments
   end
 
   private

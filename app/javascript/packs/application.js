@@ -9,6 +9,8 @@ require("@rails/activestorage").start();
 require("channels");
 require('bootstrap/dist/js/bootstrap');
 require('bootstrap-table');
+require('bootstrap-table/src/extensions/editable/bootstrap-table-editable');
+
 require('cocoon-js');
 require('select2');
 require('select2/dist/js/i18n/es');

@@ -1,0 +1,65 @@
+<% content_for :breadcrumb do  %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Inscripciones
+  </li>
+<% end %>
+
+<div class="row mt-5">
+  <div class="col-12">
+    <h1>Inscripciones</h1><small>
+    <%= @course.name %>
+  </small>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col">
+    <div class="form-row">
+      <div class="form-group col">
+        <%#= label_tag :type_of_meeting_id %>
+        <%#= select_tag :type_of_meeting_id, @type_of_meetings.collect{|c| [c.name, c.id]}, {}, {style: 'width: 100%', class: 'custom-select js-custom-select'} %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col shadow-sm">
+    <table
+      data-toggle="table"
+      data-search="true"
+      data-show-refresh="true"
+      data-show-toggle="true"
+    >
+      <thead>
+      <tr>
+        <th>Nombre Completo</th>
+        <th>Teléfono</th>
+        <th>Persona Encargada</th>
+        <th>Pagado?</th>
+        <th>Total Pagado</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @course.course_enrollments.each do |course_enrollment| %>
+        <tr>
+          <td><%= course_enrollment.person.full_name %></td>
+          <td><%= course_enrollment.person.phone_number %></td>
+          <td><%= course_enrollment.person_leader.try(:full_name) %></td>
+          <td class="badge badge-info text-white"><%=  course_enrollment.already_paid ? 'Pagado': 'No-Pagado' %></td>
+          <td class="badge badge-warning text-white"><%=  number_to_currency(course_enrollment.partial_payment) %></td>
+          <td>
+
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<% content_for :scripts do %>
+  <%= javascript_pack_tag 'main-app/src/enrollments/enrollment'%>
+<% end %>

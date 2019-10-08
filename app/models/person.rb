@@ -25,6 +25,13 @@ class Person < ApplicationRecord
     leader ||= meeting.person
     leader.disciples.joins(:active_my_title).where(my_titles: {title_obtained_id: prerrequisities})
   }
+  scope :possible_attendances_to_course?, ->(course, leader) {
+    type_of_course = course.type_of_course
+    # prerrequisities = type_of_meeting.pre_attendance_meetings.pluck(:title_obtained_id)
+    # leader ||= meeting.person
+    # leader.disciples.joins(:active_my_title).where(my_titles: {title_obtained_id: prerrequisities})
+  }
+
 
   def check_at_least_one_title
     unless self.rolable
